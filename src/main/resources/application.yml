@@ -22,6 +22,7 @@ springdoc:
 info:
   tittle: Recipes
   description: Sample RestAPI
+  version: 0.0.1
 logging:
   level:
     web: trace

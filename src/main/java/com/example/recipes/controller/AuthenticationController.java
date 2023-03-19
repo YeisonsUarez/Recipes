@@ -1,5 +1,9 @@
-package com.example.recipes.auth;
+package com.example.recipes.controller;
 
+import com.example.recipes.auth.AuthenticationRequest;
+import com.example.recipes.auth.AuthenticationResponse;
+import com.example.recipes.auth.AuthenticationService;
+import com.example.recipes.auth.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

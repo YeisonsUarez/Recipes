@@ -1,7 +1,9 @@
 package com.example.recipes.entities;
 
 import com.example.recipes.commos.Role;
+import com.mongodb.lang.NonNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -17,19 +19,26 @@ import java.util.UUID;
 
 @Data
 @Document
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Consumer implements UserDetails {
 
     @Id
     @Field
+    @Builder.Default
     public String id = String.valueOf(UUID.randomUUID());
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String channel;
+
+    @NonNull
     private String email;
 
+    @NonNull
     private String password;
 
     private Role rol;

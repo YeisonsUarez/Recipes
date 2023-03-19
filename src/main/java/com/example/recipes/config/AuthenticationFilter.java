@@ -42,7 +42,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         val token = authHeader.substring(7);
         var consumerMail = jwtService.extractUserName(token);
-        if (isEmpty(consumerMail) && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (!isEmpty(consumerMail) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails consumer = this.userDetailsService.loadUserByUsername(consumerMail);
             if (jwtService.isTokenValid(token, consumer)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

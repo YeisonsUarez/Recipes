@@ -15,9 +15,10 @@ public class DocumentationConfig {
     @Bean
     public OpenAPI api(
             @Value("${info.tittle}") String tittle,
-            @Value("${info.description}") String description
+            @Value("${info.description}") String description,
+            @Value("${info.version}") String version
     ) {
-        Info info = new Info().title(tittle).description(description);
+        Info info = new Info().title(tittle).description(description).version(version);
         Server server = new Server().url(LOCAL_HOST);
         return new OpenAPI().info(info).addServersItem(server);
     }

@@ -1,0 +1,33 @@
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:root@recipes.rncpylt.mongodb.net/db01?retryWrites=true&w=majority
+      auto-index-creation: true
+springdoc:
+  packages-to-scan: com.example.recipes.controller
+  show-actuator: true
+  swagger-ui:
+    path: /swagger-ui.html
+    use-root-path: true
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+info:
+  tittle: Recipes
+  description: Sample RestAPI
+logging:
+  level:
+    web: trace
+    org:
+      springframework:
+        web: trace
+security:
+  signing-key: 4B6250655368566D597133743677397A244226452948404D635166546A576E5A
+

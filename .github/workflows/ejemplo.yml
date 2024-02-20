@@ -15,7 +15,7 @@ jobs:
 
     - name: Obtener archivos modificados
       run: |
-        echo "{{pull_request}}"
+        echo "${{pull_request}}"
         git fetch origin ${{pull_request.head.sha}}
         git diff origin/${{pull_request.base.sha}}...${{pull_request.head.sha}} --name-only > modified_files.txt
 

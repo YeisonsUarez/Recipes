@@ -18,17 +18,15 @@ jobs:
             exit 1
           fi
 
-      - name: Obtener el hash del commit base
-        id: hash_base
-        run: echo ${{github.event.pull_request.base.sha}}
+      - name: Mostrar el resultado de git ls-files | grep -E '\.md$'
+        run: |
+          echo "Resultado de git ls-files | grep -E '\.md\$':"
+          git ls-files | grep -E '\.md$'
 
-      - name: Comparar el archivo changelog.md
-        uses: actions/github-script@v4.2.0
-        with:
-          script: |
-            const diff = await github.git.getDiff('${{ steps.hash_base.outputs.hash }}..HEAD', 'docs/changelog.md');
-            if (diff.files.length === 0) {
-              console.log("ERROR: El archivo changelog.md no se ha modificado.");
-              exit 1;
-            }
+      - name: Validar si el archivo changelog.md fue modificado
+        run: |
+          if [[ $(git ls-files | grep -E '\.md$') != "docs/changelog.md" ]]; then
+            echo "ERROR: El archivo changelog.md no se ha modificado."
+            exit 1
+          fi
 

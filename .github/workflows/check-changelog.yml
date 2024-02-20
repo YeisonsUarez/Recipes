@@ -1,0 +1,22 @@
+# This is a basic workflow to help you get started
+name: Validar archivo changelog.md
+
+on:
+  pull_request:
+
+jobs:
+  validar-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validar si se ha actualizado el archivo changelog.md
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (!github.event.pull_request.files.some(file => file.filename === 'docs/changelog.md' && file.status === 'modified')) {
+              core.setFailed("El archivo 'docs/changelog.md' no ha sido modificado en este pull request o no existe.")
+            }
+
+

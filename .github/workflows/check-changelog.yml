@@ -1,4 +1,3 @@
-
 name: Validar archivo changelog.md
 
 on:
@@ -11,13 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Validar existencia y actualización del archivo changelog.md
-        uses: actions/github-script@v7
-        with:
-          script: |
-            console.log('archivos:', context.payload.pull_request);
-            const modifiedFiles = context.payload.pull_request.files.filter(file => file.status === 'modified');
-            const changelog = modifiedFiles.find(file => file.filename === 'docs/changelog.md');
-            if (!changelog) {
-              core.setFailed("El archivo 'docs/changelog.md' no ha sido modificado en este pull request o no existe.");
-            }
+      - name: Validar archivo changelog.md
+        run: |
+          # Verifica si el archivo existe
+          if [ ! -f "docs/changelog.md" ]; then
+            echo "::error::El archivo 'docs/changelog.md' no existe."
+            exit 1
+          fi
+
+          # Verifica si el archivo ha sido modificado
+          if git diff --name-only HEAD^..HEAD | grep -q "docs/changelog.md"; then
+            # El archivo ha sido modificado
+            echo "Changelog actualizado!"
+          else
+            echo "::error::El archivo 'docs/changelog.md' no ha sido modificado en este pull request."
+            exit 1
+          fi

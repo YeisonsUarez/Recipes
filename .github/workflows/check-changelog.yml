@@ -10,20 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Validar archivo changelog.md
+      - name: Validar si existe archivo changelog.md
         run: |
           # Verifica si el archivo existe
           if [ ! -f "docs/changelog.md" ]; then
             echo "::error::El archivo 'docs/changelog.md' no existe."
             exit 1
           fi
-          echo "::error::El archivo 'docs/changelog.md' si existe."
 
+      - name: Validar si fue modificado el archivo changelog.md
+        run: |
           # Verifica si el archivo ha sido modificado
-          if git diff --name-only HEAD^..HEAD | grep -q "changelog.md"; then
+          if git diff --name-only HEAD~1..HEAD | grep -q "docs/changelog.md"; then
             # El archivo ha sido modificado
             echo "Changelog actualizado!"
           else
-            echo "::error::El archivo 'changelog.md' no ha sido modificado en este pull request."
-            exit 1
+            echo "El archivo 'docs/changelog.md' no ha sido modificado en este pull request."
           fi

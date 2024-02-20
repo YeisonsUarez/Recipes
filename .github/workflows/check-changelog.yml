@@ -21,7 +21,7 @@ jobs:
       - name: Validar si fue modificado el archivo changelog.md
         run: |
           # Verifica si el archivo ha sido modificado
-          if git diff --name-only HEAD~1..HEAD | grep -q "docs/changelog.md"; then
+          if git diff --name-only HEAD~1..HEAD | grep -q "changelog.md"; then
             # El archivo ha sido modificado
             echo "Changelog actualizado!"
           else

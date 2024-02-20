@@ -17,7 +17,7 @@ jobs:
           script: |
             const modifiedFiles = context.payload.pull_request.files.filter(file => file.status === 'modified');
             const changelog = modifiedFiles.find(file => file.filename === 'docs/changelog.md');
-
+            console.log('archivos:', context.payload.pull_request);
             if (!changelog) {
               core.setFailed("El archivo 'docs/changelog.md' no ha sido modificado en este pull request o no existe.");
             }

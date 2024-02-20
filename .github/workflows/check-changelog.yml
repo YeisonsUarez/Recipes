@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Verificar existencia de changelog.md
         run: |
-          if [ -f "changelog.md" ]; then
+          if [ -f "docs/changelog.md" ]; then
             echo "El archivo changelog.md existe."
           else
-            echo "::error::El archivo changelog.md no existe."
+            echo "::error::El archivo docs/changelog.md no existe."
             exit 1
           fi
       - name: Verificar si changelog.md fue modificado

@@ -1,24 +1,17 @@
-name: Obtener archivos modificados
+name: Changelog Check
 
 on:
   pull_request:
 
-
-  workflow_dispatch:
-
 jobs:
-  build:
+  changelog-check:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Obtener archivos modificados
-      run: |
-        echo "${{pull_request}}"
-        git fetch origin ${{pull_request.head.sha}}
-        git diff origin/${{pull_request.base.sha}}...${{pull_request.head.sha}} --name-only > modified_files.txt
-
-    - name: Mostrar archivos modificados
-      run: cat modified_files.txt
-
+      - name: Check if changelog.md exists
+        run: |
+          if [[ ! -f "changelog.md" ]]; then
+            echo "ERROR: changelog.md file not found!"
+            exit 1
+          fi

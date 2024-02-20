@@ -20,7 +20,7 @@ jobs:
 
       - name: Obtener el hash del commit base
         id: hash_base
-        run: git rev-parse origin/base
+        run: echo ${{github.event.pull_request.base.sha}}
 
       - name: Comparar el archivo changelog.md
         uses: actions/github-script@v4.2.0

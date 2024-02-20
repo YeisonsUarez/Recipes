@@ -21,7 +21,7 @@ jobs:
       - name: Validar archivo changelog.md
         run: |
           # Verifica si el archivo ha sido modificado
-          files=$(git diff origin/master...FETCH_HEAD --name-only | jq -r '.[]')
+          files=$(git diff origin/develop...FETCH_HEAD --name-only | jq -r '.[]')
           for file in $files; do
             echo "Archivo: $file"
           done

@@ -26,4 +26,5 @@ jobs:
             echo "Changelog actualizado!"
           else
             echo "::error::El archivo 'docs/changelog.md' no ha sido modificado en este pull request."
+            exit 1
           fi

@@ -1,5 +1,6 @@
 
-name: Validar Changelog
+name: Validar archivo changelog.md
+
 
 on:
   pull_request:

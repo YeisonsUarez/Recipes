@@ -1,3 +1,4 @@
+
 name: Validar archivo changelog.md
 
 on:
@@ -20,9 +21,17 @@ jobs:
 
       - name: Validar archivo changelog.md
         run: |
-          # Verifica si el archivo ha sido modificado
-          files=$(git diff origin/develop...FETCH_HEAD --name-only | jq -r '.[]')
-          for file in $files; do
-            echo "Archivo: $file"
-          done
-          exit 1
+          # Verifica si el archivo existe
+          if [ ! -f "docs/changelog.md" ]; then
+            echo "::error::El archivo 'docs/changelog.md' no existe."
+            exit 1
+          fi
+
+          # Verifica si hay cambios en el archivo
+          git diff --quiet HEAD^ HEAD docs/changelog.md
+          if [ $? -eq 0 ]; then
+            echo "::warning::No se encontraron cambios en el archivo 'docs/changelog.md'."
+            exit 1
+          fi
+
+          echo "::success::El archivo 'docs/changelog.md' se actualizó correctamente."

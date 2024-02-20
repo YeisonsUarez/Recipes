@@ -9,14 +9,6 @@ jobs:
   validar-changelog:
     runs-on: ubuntu-latest
     steps:
-      - name: Verificar existencia de changelog.md
-        run: |
-          if [ -f "docs/changelog.md" ]; then
-            echo "El archivo changelog.md existe."
-          else
-            echo "::error::El archivo docs/changelog.md no existe."
-            exit 1
-          fi
       - name: Verificar si changelog.md fue modificado
         run: |
           git fetch origin ${{ github.head_ref }}

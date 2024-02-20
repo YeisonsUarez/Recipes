@@ -1,17 +1,34 @@
-name: Changelog Check
-
+name: Verificación del archivo de cambios (Changelog)
 on:
   pull_request:
 
 jobs:
-  changelog-check:
+  verificacion_changelog:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch: true
 
-      - name: Check if changelog.md exists
+      - name: Comprobar si existe el archivo changelog.md
         run: |
           if [[ ! -f "docs/changelog.md" ]]; then
-            echo "ERROR: changelog.md file not found!"
+            echo "ERROR: ¡No se encontró el archivo changelog.md!"
             exit 1
           fi
+
+      - name: Obtener el hash del commit base
+        id: hash_base
+        run: git rev-parse origin/base
+
+      - name: Comparar el archivo changelog.md
+        uses: actions/github-script@v4.2.0
+        with:
+          script: |
+            const diff = await github.git.getDiff('${{ steps.hash_base.outputs.hash }}..HEAD', 'docs/changelog.md');
+            if (diff.files.length === 0) {
+              console.log("ERROR: El archivo changelog.md no se ha modificado.");
+              exit 1;
+            }
+

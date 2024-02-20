@@ -11,7 +11,7 @@ jobs:
 
       - name: Check if changelog.md exists
         run: |
-          if [[ ! -f "changelog.md" ]]; then
+          if [[ ! -f "docs/changelog.md" ]]; then
             echo "ERROR: changelog.md file not found!"
             exit 1
           fi

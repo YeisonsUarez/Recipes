@@ -23,5 +23,6 @@ class GenerateDocTest extends IntegrationTest {
         Path outputDir = Paths.get("docs");
         Files.createDirectories(outputDir);
         Files.writeString(outputDir.resolve("swagger.yaml"), responseEntity.getBody());
+        //Se usa swagger con datos
     }
 }

@@ -21,7 +21,7 @@ jobs:
       - name: Mostrar el resultado de git ls-files | grep -E '\.md$'
         run: |
           echo "Resultado de git diff --name-only HEAD origin/develop :"
-          git diff --name-only HEAD origin/feature
+          git diff --name-only HEAD origin/develop
 
       - name: Validar si el archivo changelog.md fue modificado
         run: |

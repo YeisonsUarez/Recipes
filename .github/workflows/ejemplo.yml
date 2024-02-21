@@ -1,0 +1,32 @@
+name: Verificación del archivo de cambios (Changelog)
+on:
+  pull_request:
+
+jobs:
+  verificacion_changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch: true
+
+      - name: Comprobar si existe el archivo changelog.md
+        run: |
+          if [[ ! -f "docs/changelog.md" ]]; then
+            echo "ERROR: ¡No se encontró el archivo changelog.md!"
+            exit 1
+          fi
+
+      - name: Mostrar el resultado de git ls-files | grep -E '\.md$'
+        run: |
+          echo "Resultado de git ls-files | grep -E '\changelog.md\$':"
+          git ls-files | grep -E '\.md$'
+
+      - name: Validar si el archivo changelog.md fue modificado
+        run: |
+          if [[ $(git ls-files | grep -E '\changelog.md$') != "docs/changelog.md" ]]; then
+            echo "ERROR: El archivo changelog.md no se ha modificado."
+            exit 1
+          fi
+

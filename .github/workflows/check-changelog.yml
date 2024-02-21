@@ -1,0 +1,37 @@
+
+name: Validar archivo changelog.md
+
+on:
+  pull_request:
+
+jobs:
+  validar-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validar archivo changelog.md
+        run: |
+          # Verifica si el archivo existe
+          if [ ! -f "docs/changelog.md" ]; then
+            echo "::error::El archivo 'docs/changelog.md' no existe."
+            exit 1
+          fi
+
+      - name: Validar archivo changelog.md
+        run: |
+          # Verifica si el archivo existe
+          if [ ! -f "docs/changelog.md" ]; then
+            echo "::error::El archivo 'docs/changelog.md' no existe."
+            exit 1
+          fi
+
+          # Verifica si hay cambios en el archivo
+          git diff --quiet HEAD^ HEAD docs/changelog.md
+          if [ $? -eq 0 ]; then
+            echo "::warning::No se encontraron cambios en el archivo 'docs/changelog.md'."
+            exit 1
+          fi
+
+          echo "::success::El archivo 'docs/changelog.md' se actualizó correctamente."

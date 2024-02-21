@@ -20,13 +20,13 @@ jobs:
 
       - name: Mostrar el resultado de git ls-files | grep -E '\.md$'
         run: |
-          echo "Resultado de git ls-files -m -o | grep -E '\changelog.md\$':"
-          git ls-files -m -o | grep -E '\changelog.md$'
+          echo "Resultado de git ls-files -m -o | grep -E '\.md\$':"
+          git ls-files -m -o | grep -E '\.md$'
           exit 1
 
       - name: Validar si el archivo changelog.md fue modificado
         run: |
-          if [[ $(git ls-files -m -o | grep -E '\changelog.md$') != "docs/changelog.md" ]]; then
+          if [[ $(git ls-files -m -o | grep -E '\.md$') != "docs/changelog.md" ]]; then
             echo "ERROR: El archivo changelog.md no se ha modificado."
             exit 1
           fi

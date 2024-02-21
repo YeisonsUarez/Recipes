@@ -22,7 +22,6 @@ jobs:
         run: |
           echo "Resultado de git ls-files -m -o | grep -E '\.md\$':"
           git ls-files -m -o | grep -E '\.md$'
-          exit 1
 
       - name: Validar si el archivo changelog.md fue modificado
         run: |

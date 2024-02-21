@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch: true
+          fetch-depth: 0
 
       - name: Comprobar si existe el archivo changelog.md
         run: |

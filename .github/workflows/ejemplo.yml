@@ -17,16 +17,13 @@ jobs:
             echo "ERROR: ¡No se encontró el archivo changelog.md!"
             exit 1
           fi
-
       - name: Mostrar el resultado de git ls-files | grep -E '\.md$'
         run: |
-          echo "Resultado de gh pr diff --name-only :"
-          gh pr diff --name-only
-
+          echo "Resultado de git diff --name-only HEAD origin/develop :"
+          git diff --name-only HEAD origin/develop
       - name: Validar si el archivo changelog.md fue modificado
         run: |
-          if [[ $(gh pr diff --name-only | grep -E '\changelog.md$') != "docs/changelog.md" ]]; then
+          if [[ $(git diff --name-only HEAD origin/develop | grep -E '\changelog.md$') != "docs/changelog.md" ]]; then
             echo "ERROR: El archivo changelog.md no se ha modificado."
             exit 1
           fi
-
